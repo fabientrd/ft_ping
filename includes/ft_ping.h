@@ -12,4 +12,11 @@
 # include <signal.h>
 
 
+typedef struct	s_env{
+	int v;
+	int h;
+	char err;
+	char *ip;
+}				t_env;
+
 # endif
