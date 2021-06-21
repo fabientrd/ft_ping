@@ -1,8 +1,8 @@
 #include "../includes/ft_ping.h"
 
-void check_ip(char *s, t_env *env){
+/*void check_ip(char *s, t_env *env){
 	return ;
-}
+}*/
 
 void init_env(t_env *env){
 	env->v = 0;
@@ -30,7 +30,7 @@ int  fill_env(t_env *env, char **av){
 			}
 		}
 		else{
-			check_ip(av[i], env);
+//			check_ip(av[i], env);
 		}
 	}
 	return (0);
@@ -44,7 +44,7 @@ int		main(int ac, char **av){
 		return (EXIT_FAILURE);
 	}
 	if (fill_env(&env, av)){
-		printf("ping: invalid option -- '%c'\n", env.err);
+		printf("ping: invalid option -- '%c'\n\nUsage\n  ping [options] <destination>\n\nOptions:\n  <destination>	dns name or ip address\n  -v	verbose output\n  -h	print help and exit\n\nFor more details see ping(8)", env.err);
 		return (EXIT_FAILURE);
 	}
 	else{
