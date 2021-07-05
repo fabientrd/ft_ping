@@ -22,6 +22,7 @@ typedef struct	s_env{
 	char err;
 	char *dest;
 	char *addrstr;
+	char *addrstr6;
 }				t_env;
 
 

@@ -5,6 +5,8 @@ void free_env(t_env env){
 		free(env.dest);
 	if (env.addrstr)
 		free(env.addrstr);
+	if (env.addrstr6)
+		free(env.addrstr6);
 	return ;
 }
 
@@ -39,6 +41,7 @@ void init_env(t_env *env){
 	env->err = '\0';
 	env->dest = NULL;
 	env->addrstr = NULL;
+	env->addrstr6 = NULL;
 }
 
 int  fill_env(t_env *env, char **av){
