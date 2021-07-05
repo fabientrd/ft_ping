@@ -51,12 +51,7 @@ int		lookup_dest(t_env *env){
 			env->addrstr6 = ft_strdup(addrstr);
 		printf ("IPv%d address: %s (%s)\n", res->ai_family == PF_INET6 ? 6 : 4,
               addrstr, res->ai_canonname);
-//		if (ptr)  BUG WITH ASIGNATION OF ADDRSTR
-//			break ;
 	}
-	printf("hints.ai_family = %d\n", result->ai_family);
-	printf("env->addrstr = %s\n", env->addrstr);
-	printf("env->addrstr6 = %s\n", env->addrstr6);
 	if (init_ping(env)){
 		printf("A problem ocurred during the initialization of the socket\n");
 		return (1);

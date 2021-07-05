@@ -30,7 +30,7 @@ CC_FLAGS = -Wall -Werror -Wextra -g
 
 SRC =	main.c \
 		check.c \
-		send.c 
+		ping.c 
 
 OBJ = $(addprefix $(OBJ_PATH), $(SRC:.c=.o))
 

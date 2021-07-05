@@ -42,6 +42,7 @@ void init_env(t_env *env){
 	env->dest = NULL;
 	env->addrstr = NULL;
 	env->addrstr6 = NULL;
+	env->fdqn = NULL;
 }
 
 int  fill_env(t_env *env, char **av){
