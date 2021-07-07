@@ -7,6 +7,8 @@ void free_env(t_env env){
 		free(env.addrstr);
 	if (env.addrstr6)
 		free(env.addrstr6);
+	if (env.fqdn)
+		free(env.fqdn);
 	return ;
 }
 
@@ -42,7 +44,7 @@ void init_env(t_env *env){
 	env->dest = NULL;
 	env->addrstr = NULL;
 	env->addrstr6 = NULL;
-	env->fdqn = NULL;
+	env->fqdn = NULL;
 }
 
 int  fill_env(t_env *env, char **av){
@@ -87,6 +89,7 @@ int  fill_env(t_env *env, char **av){
 int		main(int ac, char **av){
 	int fill;
 	t_env env;
+	// VERIFIER DURANT QUEL PHASE DU PING IL Y A UNE ERREUR ...
 	
 	if (getuid() != 0){
 		printf("This program sends raw socket, you must be root or sudoers to"
@@ -105,8 +108,16 @@ int		main(int ac, char **av){
 			free_env(env);
 			return EXIT_FAILURE;
 		}
-		lookup_dest(&env);
-		free_env(env);
+		else if ((lookup_dest(&env)) || reverse_lookup(&env)){
+			free_env(env);
+			return EXIT_FAILURE;
+		}
+		else if (init_ping(&env)){
+				printf("A problem occured during the initialization of the socket\n");
+				free_env(env);
+				return EXIT_FAILURE;
+		}
 	}
+	free_env(env);
 	return (0);
 }

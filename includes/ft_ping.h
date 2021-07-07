@@ -23,10 +23,12 @@ typedef struct	s_env{
 	char *dest;
 	char *addrstr;
 	char *addrstr6;
-	char *fdqn;
+	char *fqdn;
 }				t_env;
 
 
-int lookup_dest(t_env *env);
-void send_ping(int sock, t_env *env);
+int		lookup_dest(t_env *env);
+void	send_ping(int sock, t_env *env);
+int		init_ping(t_env *env);
+int		reverse_lookup(t_env *env);
 # endif

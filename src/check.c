@@ -1,21 +1,19 @@
 #include "../includes/ft_ping.h"
 
-int loop = 1;
-
-void  handler(){
-	loop = 0;
-	return ;
-}
 
 int init_ping(t_env *env){
 	int sock;
 
 	printf("PING %s (%s) %d(%d) bytes of data.\n", env->dest, env->addrstr, env->s, env->s + 28);
-	signal(SIGINT, handler);
 	sock = socket(AF_INET, SOCK_RAW, IPPROTO_ICMP);
 	if (sock < 0)
 		return (1);
 	send_ping(sock, env);
+	return (0);
+}
+
+int		reverse_lookup(t_env *env){
+	(void)env;
 	return (0);
 }
 
@@ -44,17 +42,12 @@ int		lookup_dest(t_env *env){
 				ptr = &((struct sockaddr_in6 *) res->ai_addr)->sin6_addr;
 				break ;
         }
+		env->fqdn = res->ai_canonname != NULL ? ft_strdup(res->ai_canonname) : env->fqdn;
 		inet_ntop (res->ai_family, ptr, addrstr, 100);
 		if (res->ai_family == PF_INET)
 			env->addrstr = ft_strdup(addrstr);
 		else if (res->ai_family == PF_INET6)
 			env->addrstr6 = ft_strdup(addrstr);
-		printf ("IPv%d address: %s (%s)\n", res->ai_family == PF_INET6 ? 6 : 4,
-              addrstr, res->ai_canonname);
-	}
-	if (init_ping(env)){
-		printf("A problem ocurred during the initialization of the socket\n");
-		return (1);
 	}
 	freeaddrinfo(result);
 	return (0);
